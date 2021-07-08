@@ -1,0 +1,59 @@
+# How to install AirFlow on MacOS
+
+1. Create a folder to determinate airflow directory
+2. Execute next command to create a environment and init:
+
+```
+python3 -m venv .env
+```
+
+3. Active your environment with block code:
+
+```
+source .env/bin/activate
+```
+
+4. Execute the next block code to install airflow 2.0 version, in case to install other version change AIRFLOW_VERSION variable:
+
+```
+export AIRFLOW_HOME=~/airflow
+
+AIRFLOW_VERSION=2.1.1
+
+PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+
+pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+
+```
+
+ATTENTION: .
+- If your mac use a apple silicon you will need to configure a pep 517, cause to date pynum lib don't work in this processor. Use this code to activate in ur machine:
+```
+
+python3 -m pip install --upgrade pip setuptools wheel
+
+or 
+
+python3 -m pip install --upgrade pip setuptools wheel
+```
+
+5. To initiate database, web UI and scheduler execute:
+
+```
+airflow db init
+
+airflow users create \
+    --username admin \
+    --firstname amanda \
+    --lastname faro \
+    --role Admin \
+    --email amanda@faro.com.br
+
+airflow webserver --port 8080
+
+airflow scheduler
+```
+
+ATTENTION: if you are using less than airflow 2.0 u need to execute airflow initdb.
