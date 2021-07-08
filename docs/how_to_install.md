@@ -1,6 +1,7 @@
 # How to install AirFlow on MacOS
 
 1. Create a folder to determinate airflow directory
+
 2. Execute next command to create a environment and init:
 
 ```
